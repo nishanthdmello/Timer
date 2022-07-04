@@ -1,15 +1,20 @@
 from tkinter import *
-from pygame import *
-mixer.init()
+# from pygame import *
+# mixer.init()
+
+
+
+# global it;it=0 
 
 def insert(*time):        
     for i in range(3):
-            e[i].insert(0,time[i])  
+            e[i].insert(0,time[i])       
 
 def get():
-
+    
+    #adds 00 where no input is given
     try:
-        h=int(e1.get())
+        h=int(e1.get())                 
     except:
         e1.insert(0,0)
         h=0
@@ -23,23 +28,35 @@ def get():
     except:
         e3.insert(0,0)
         s=0
-
+        
     for i in range(3):
             e[i].delete(0,END)
 
-    if h<0 or m<0 or s<0:#makes -ve inputs zero
+<<<<<<< HEAD:timer.py
+    if h<0 or m<0 or s<0:
         insert(0,0,0)
         h=0;m=0;s=0
         global a;a=0
+
+    s=h*36000+m*60+s
     h=s//36000; s%=36000
     m=s//60;    s%=60
         
     h,m,s,cs=check(h,m,s,0)
     insert(h,m,s)
+=======
+    if h<0 or m<0 or s<0:#makes -ve inputs zero
+        insert('00','00','00')
+        global a,it;a=0;it=0  
+    else:
+        h,m,s,cs=check(h,m,s,0)
+        insert(h,m,s)
+        # for i in range(3):
+        #     e[i].delete(0,END)                
+>>>>>>> parent of 14431ac (many changes):timer1.py
     return(int(h),int(m),int(s))       
 
-def check(h,m,s,cs):#makes single digit double by concatenating 0
-    
+def check(h,m,s,cs):    
     if h<10:
         h="0"+str(h)
     if m<10:
@@ -52,7 +69,7 @@ def check(h,m,s,cs):#makes single digit double by concatenating 0
 
 def update():
     
-    global it,a        
+    global a,it        
     if it and a:
 
         t=it
@@ -62,27 +79,45 @@ def update():
         h,m,s,cs=check(h,m,s,cs) 
         l.config(text=f"{h}:{m}:{s}.{cs}")          
         it-=1;     
-        l.after(9,update)
+        l.after(10,update)
 
     elif it==0 and a:
         
         b1['state']=DISABLED
         l.config(text="Timer Done")            
-        mixer.music.load("sound.mp3")
-        mixer.music.play(loops=100)            
+        # mixer.music.load("sound.mp3")
+        # mixer.music.play(loops=100)            
 
 def start():
 
+    # global it,a;a=1    
     global a;a=1    
+    # h,m,s=get()
+        
+    # if h>=0 and m>=0 and s>=0:
     b1.config(command=stop,image=img[1])            
+    # for i in range(3):
+    #     e[i]['state']=DISABLED          
+    # for i in but:
+    #     i['state']=DISABLED
     update()  
 
 def initstart():
 
-    global it,a,inp;a=1
+<<<<<<< HEAD:timer.py
+    global it,a;a=1
+=======
+    global it,a;a=1    
+>>>>>>> parent of 14431ac (many changes):timer1.py
     h,m,s=get()
-    if h>0 or m>0 or s>0:
-        it=(h*3600+m*60+s)*100
+    it=(h*3600+m*60+s)*100 
+    # if h+m+s==0:
+    #     h,m,s,cs=check(0,0,0,0)
+    #     for i in range(3):
+    #         e[i].delete(0,END) 
+    #     insert(h,m,s)
+        
+    if h>0 and m>0 and s>0:
         b1.config(command=stop,image=img[1])            
         for i in range(3):
             e[i]['state']=DISABLED          
@@ -94,11 +129,11 @@ def stop():
 
 def reset():
     
-    global a,it;a=0;it=0
+    global a;a=0
     for i in range(3):
         e[i]['state']=NORMAL      
     b1.config(command=initstart,state=NORMAL,image=img[0])        
-    mixer.music.stop()        
+    # mixer.music.stop()        
     l.config(text="00:00:00.00")  
 
 #All declarations are here
@@ -111,11 +146,11 @@ root.configure(bg="black")
 strimg=PhotoImage(file="play.png")
 stpimg=PhotoImage(file="pause.png")
 rstimg=PhotoImage(file="reset.png")
-
 img=[strimg,stpimg,rstimg] 
 
 l=Label(root,text="Please keep the maximum time under 100 hours for good interface",font=10,bg="black",fg="red")
 l.place(x=10,y=0)
+
 ipt_frame=LabelFrame(root,padx=5,pady=10,bg="black")
 but_frame=LabelFrame(root,padx=0,pady=10,bg="black")    
 ipt_frame.grid(row=0,pady=40,column=0,rowspan=2,padx=40)

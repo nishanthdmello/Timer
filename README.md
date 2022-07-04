@@ -1,2 +1,2 @@
-# clock
- contains timer stopwatch and worldtime
+# timer
+ contains timer 
