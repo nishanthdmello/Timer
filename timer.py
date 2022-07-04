@@ -2,54 +2,35 @@ from tkinter import *
 from pygame import *
 mixer.init()
 
-def insert(*time):        
+def insert(t):        
     for i in range(3):
-            e[i].insert(0,time[i])  
+            e[i].insert(0,t[i])  
 
 def get():
 
-    try:
-        h=int(e1.get())
-    except:
-        e1.insert(0,0)
-        h=0
-    try:
-        m=int(e2.get())
-    except:
-        e2.insert(0,0)
-        m=0
-    try:
-        s=int(e3.get())
-    except:
-        e3.insert(0,0)
-        s=0
-
+    t=[0,0,0,0]
     for i in range(3):
+        try:
+            t[i]=int(e[i].get())
             e[i].delete(0,END)
-
-    if h<0 or m<0 or s<0:
-        insert(0,0,0)
-        h=0;m=0;s=0
-        global a;a=0
-
-    s=h*36000+m*60+s
-    h=s//36000; s%=36000
-    m=s//60;    s%=60
+            if t[i]<0:
+                t[i]=0
+        except:
+            t[i]=0
+    
+    t[2]=t[0]*36000+t[1]*60+t[2]
+    t[0]=t[2]//36000; t[2]%=36000
+    t[1]=t[2]//60;    t[2]%=60
         
-    h,m,s,cs=check(h,m,s,0)
-    insert(h,m,s)
-    return(int(h),int(m),int(s))       
+    t=check(t)
+    insert(t)
+    return(int(t[0]),int(t[1]),int(t[2]))       
 
-def check(h,m,s,cs):    
-    if h<10:
-        h="0"+str(h)
-    if m<10:
-        m="0"+str(m)
-    if s<10:
-        s="0"+str(s)
-    if cs<10:
-        cs="0"+str(cs)
-    return(h,m,s,cs)
+def check(t): 
+    for i in range(4):
+        if t[i]<10:
+            t[i]="0"+str(t[i])
+    return(t)
 
 def update():
     
@@ -59,8 +40,9 @@ def update():
         t=it
         h=t//360000;  t%=360000
         m=t//6000;    t%=6000
-        s=t//100;     cs=t%100            
-        h,m,s,cs=check(h,m,s,cs) 
+        s=t//100;     cs=t%100 
+        t=[h,m,s,cs]           
+        h,m,s,cs=check(t) 
         l.config(text=f"{h}:{m}:{s}.{cs}")          
         it-=1;     
         l.after(10,update)
@@ -84,7 +66,9 @@ def initstart():
     h,m,s=get()
     if h>0 or m>0 or s>0:
         it=(h*3600+m*60+s)*100
-        b1.config(command=stop,image=img[1])            
+        b1.config(command=stop,image=img[1])
+        b2['state']=NORMAL       
+
         for i in range(3):
             e[i]['state']=DISABLED          
         update()       
@@ -98,7 +82,9 @@ def reset():
     global a;a=0
     for i in range(3):
         e[i]['state']=NORMAL      
-    b1.config(command=initstart,state=NORMAL,image=img[0])        
+    b1.config(command=initstart,state=NORMAL,image=img[0])
+    b2['state']=DISABLED
+
     mixer.music.stop()        
     l.config(text="00:00:00.00")  
 
@@ -135,10 +121,10 @@ e3=Entry(ipt_frame,width=2,font=("Helvetica",20))
 e=[e1,e2,e3]
 for i in range(3):
     e[i].grid(row=1,column=i,padx=10)
-insert('00','00','00')
+insert(['00','00','00'])
 
 b1=Button(but_frame,padx=10,relief=FLAT,command=initstart,image=img[0],bg="black")
-b2=Button(but_frame,padx=10,relief=FLAT,command=reset,image=img[2],bg="black")
+b2=Button(but_frame,padx=10,relief=FLAT,command=reset,image=img[2],bg="black",state=DISABLED)
 b1.grid(row=0,pady=5,padx=10)
 b2.grid(row=0,column=1,padx=10)
 
