@@ -1,6 +1,6 @@
 from tkinter import *
-from pygame import *
-mixer.init()
+# from pygame import *
+# mixer.init()
 
 root=Tk()
 root.title("Timer")
@@ -84,8 +84,8 @@ def update():
         
         b1['state']=DISABLED
         l.config(text="Timer Done")            
-        mixer.music.load("sound.mp3")
-        mixer.music.play(loops=100)            
+        # mixer.music.load("sound.mp3")
+        # mixer.music.play(loops=100)            
 
 def start():
 
@@ -129,7 +129,7 @@ def reset():
     for i in range(3):
         e[i]['state']=NORMAL      
     b1.config(command=initstart,state=NORMAL,image=img[0])        
-    mixer.music.stop()        
+    # mixer.music.stop()        
     l.config(text="00:00:00.00")   
 
 ipt_frame=LabelFrame(frame,padx=5,pady=10,bg="black")
