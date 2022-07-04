@@ -124,10 +124,10 @@ def reset():
 
 root=Tk()
 root.title("Timer")
-root.geometry('530x280')
+root.geometry('490x280')
 root.configure(bg="black") 
 
-# root=Labelroot(root,bg="black")
+# root=LabelFrame(root,bg="black")
 # root.place(x=15,y=10) 
 
 strimg=PhotoImage(file="play.png")
@@ -136,28 +136,28 @@ rstimg=PhotoImage(file="reset.png")
 
 img=[strimg,stpimg,rstimg] 
 
-ipt_root=Labelroot(root,padx=5,pady=10,bg="black")
-but_root=Labelroot(root,padx=0,pady=10,bg="black")    
-ipt_root.grid(row=0,pady=10,column=0,rowspan=2,padx=40)
-but_root.grid(row=1,column=2,padx=40)    
+ipt_frame=LabelFrame(root,padx=5,pady=10,bg="black")
+but_frame=LabelFrame(root,padx=0,pady=10,bg="black")    
+ipt_frame.grid(row=0,pady=25,column=0,rowspan=2,padx=40)
+but_frame.grid(row=1,column=2,padx=40,pady=25)    
 
-l1=Label(ipt_root,text="HR",bg="black",fg="white")
-l2=Label(ipt_root,text="MIN",bg="black",fg="white")
-l3=Label(ipt_root,text="SEC",bg="black",fg="white")
+l1=Label(ipt_frame,text="HR",bg="black",fg="white")
+l2=Label(ipt_frame,text="MIN",bg="black",fg="white")
+l3=Label(ipt_frame,text="SEC",bg="black",fg="white")
 l1.grid(row=0,column=0)
 l2.grid(row=0,column=1)
 l3.grid(row=0,column=2)
 
-e1=Entry(ipt_root,width=2,font=("Helvetica",20))
-e2=Entry(ipt_root,width=2,font=("Helvetica",20))
-e3=Entry(ipt_root,width=2,font=("Helvetica",20))
+e1=Entry(ipt_frame,width=2,font=("Helvetica",20))
+e2=Entry(ipt_frame,width=2,font=("Helvetica",20))
+e3=Entry(ipt_frame,width=2,font=("Helvetica",20))
 e=[e1,e2,e3]
 for i in range(3):
     e[i].grid(row=1,column=i,padx=10)
 insert('00','00','00')
 
-b1=Button(but_root,padx=10,relief=FLAT,command=initstart,image=img[0],bg="black")
-b2=Button(but_root,padx=10,relief=FLAT,command=reset,image=img[2],bg="black")
+b1=Button(but_frame,padx=10,relief=FLAT,command=initstart,image=img[0],bg="black")
+b2=Button(but_frame,padx=10,relief=FLAT,command=reset,image=img[2],bg="black")
 b1.grid(row=0,pady=5,padx=10)
 b2.grid(row=0,column=1,padx=10)
 
