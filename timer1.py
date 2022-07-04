@@ -28,27 +28,18 @@ def get():
     except:
         e3.insert(0,0)
         s=0
-    # inp=[h,m,s]
-    # for i in range(3):
-    #     try:
-    #         inp[i]=int(e[i].get())
-    #     except:
-    #         e[i].insert(0,0)
-    #         inp[i]=0
-    if h<0 or m<0 or s<0:
-        for i in range(3):
-            e[i].delete(0,END) 
-        insert('00','00','00')
-        global a,it;a=0;it=0
-
-             
-
         
-    if h>=0 and m>=0 and s>=0:
+    for i in range(3):
+            e[i].delete(0,END)
+
+    if h<0 or m<0 or s<0:#makes -ve inputs zero
+        insert('00','00','00')
+        global a,it;a=0;it=0  
+    else:
         h,m,s,cs=check(h,m,s,0)
-        for i in range(3):
-            e[i].delete(0,END)                
         insert(h,m,s)
+        # for i in range(3):
+        #     e[i].delete(0,END)                
     return(int(h),int(m),int(s))       
 
 def check(h,m,s,cs):#makes single digit double by concatenating 0
@@ -102,15 +93,14 @@ def initstart():
 
     global it,a;a=1    
     h,m,s=get()
-    # if it==0:
     it=(h*3600+m*60+s)*100 
-    if h+m+s==0:
-        h,m,s,cs=check(0,0,0,0)
-        for i in range(3):
-            e[i].delete(0,END) 
-        insert(h,m,s)
+    # if h+m+s==0:
+    #     h,m,s,cs=check(0,0,0,0)
+    #     for i in range(3):
+    #         e[i].delete(0,END) 
+    #     insert(h,m,s)
         
-    else:
+    if h>0 and m>0 and s>0:
         b1.config(command=stop,image=img[1])            
         for i in range(3):
             e[i]['state']=DISABLED          
@@ -136,19 +126,18 @@ root.title("Timer")
 root.geometry('490x280')
 root.configure(bg="black") 
 
-# root=LabelFrame(root,bg="black")
-# root.place(x=15,y=10) 
-
 strimg=PhotoImage(file="play.png")
 stpimg=PhotoImage(file="pause.png")
 rstimg=PhotoImage(file="reset.png")
 
 img=[strimg,stpimg,rstimg] 
 
+l=Label(root,text="Please keep the maximum time under 100 hours for good interface",font=10,bg="black",fg="red")
+l.place(x=10,y=0)
 ipt_frame=LabelFrame(root,padx=5,pady=10,bg="black")
 but_frame=LabelFrame(root,padx=0,pady=10,bg="black")    
-ipt_frame.grid(row=0,pady=25,column=0,rowspan=2,padx=40)
-but_frame.grid(row=1,column=2,padx=40,pady=25)    
+ipt_frame.grid(row=0,pady=40,column=0,rowspan=2,padx=40)
+but_frame.grid(row=1,column=2,padx=40,pady=40)    
 
 l1=Label(ipt_frame,text="HR",bg="black",fg="white")
 l2=Label(ipt_frame,text="MIN",bg="black",fg="white")
@@ -171,7 +160,7 @@ b1.grid(row=0,pady=5,padx=10)
 b2.grid(row=0,column=1,padx=10)
 
 l=Label(root,text="00:00:00.00",font=("Helvetica",50),bg="black",fg="white")
-l.grid(row=4,column=0,columnspan=3,pady=35)
+l.grid(row=4,column=0,columnspan=3,pady=10)
 
 mainloop()
 
