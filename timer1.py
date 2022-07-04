@@ -12,28 +12,28 @@ def insert(*time):
 
 def get():
     
-    # try:
-    #     h=int(e1.get())                 
-    # except:
-    #     e1.insert(0,0)
-    #     h=0
-    # try:
-    #     m=int(e2.get())
-    # except:
-    #     e2.insert(0,0)
-    #     m=0
-    # try:
-    #     s=int(e3.get())
-    # except:
-    #     e3.insert(0,0)
-    #     s=0
-    inp=[h,m,s]
-    for i in range(3):
-        try:
-            inp[i]=int(e[i].get())
-        except:
-            e[i].insert(0,0)
-            inp[i]=0
+    try:
+        h=int(e1.get())                 
+    except:
+        e1.insert(0,0)
+        h=0
+    try:
+        m=int(e2.get())
+    except:
+        e2.insert(0,0)
+        m=0
+    try:
+        s=int(e3.get())
+    except:
+        e3.insert(0,0)
+        s=0
+    # inp=[h,m,s]
+    # for i in range(3):
+    #     try:
+    #         inp[i]=int(e[i].get())
+    #     except:
+    #         e[i].insert(0,0)
+    #         inp[i]=0
         
     if h>=0 and m>=0 and s>=0:
         h,m,s,cs=check(h,m,s,0)
