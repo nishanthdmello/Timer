@@ -12,6 +12,7 @@ def insert(*time):
 
 def get():
     
+    #adds 00 where no input is given
     try:
         h=int(e1.get())                 
     except:
@@ -34,6 +35,14 @@ def get():
     #     except:
     #         e[i].insert(0,0)
     #         inp[i]=0
+    if h<0 or m<0 or s<0:
+        for i in range(3):
+            e[i].delete(0,END) 
+        insert('00','00','00')
+        global a,it;a=0;it=0
+
+             
+
         
     if h>=0 and m>=0 and s>=0:
         h,m,s,cs=check(h,m,s,0)
@@ -42,7 +51,7 @@ def get():
         insert(h,m,s)
     return(int(h),int(m),int(s))       
 
-def check(h,m,s,cs):
+def check(h,m,s,cs):#makes single digit double by concatenating 0
     
     if h<10:
         h="0"+str(h)
